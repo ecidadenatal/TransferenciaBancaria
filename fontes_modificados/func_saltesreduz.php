@@ -97,7 +97,7 @@ $clsaltes->rotulo->label("k13_reduz");
           }
       }
 
-      /* [Extensão] - Transferência Bancária - Filtro de Conta por Favorecido */
+      /* [Extensao] - Transferencia Bancaria - Filtro de Conta por Favorecido */
 
       
       if (isset($ver_datalimite) && trim(@$ver_datalimite)=="1"){

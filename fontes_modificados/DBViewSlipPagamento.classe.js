@@ -247,7 +247,7 @@ DBViewSlipPagamento = function(sNomeInstancia, iTipoTransferencia, iOpcao, oDivD
   me.oTxtCodigoFinalidadeFundeb.setReadOnly(me.lReadOnly);
   me.oTxtDescricaoFinalidadeFundeb.setReadOnly(me.lReadOnly);
 
-  /* Plugin - Filtro Transferência Bancária - Parte 1 */
+  /* Plugin - Filtro Transferencia Bancaria - Parte 1 */
 
   /*
    * Textarea das observacoes
@@ -1055,7 +1055,7 @@ DBViewSlipPagamento = function(sNomeInstancia, iTipoTransferencia, iOpcao, oDivD
     if (lErro) {
       me.oTxtFavorecidoInputCodigo.setValue('');
     } 
-    /* Plugin - Filtro Transferência Bancária - Parte 2 */
+    /* Plugin - Filtro Transferencia Bancaria - Parte 2 */
   };
 
   /**
@@ -1071,7 +1071,7 @@ DBViewSlipPagamento = function(sNomeInstancia, iTipoTransferencia, iOpcao, oDivD
     me.oTxtFavorecidoInputDescricao.setValue(sCnpjTratado+""+sNomeFavorecido);
     db_iframe_cgm.hide();
 
-    /* Plugin - Filtro Transferência Bancária - Parte 3 */
+    /* Plugin - Filtro Transferencia Bancaria - Parte 3 */
   };
 
 
