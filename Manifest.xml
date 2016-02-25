@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="TransferenciaBancaria" label="TransferenciaBancaria" plugin-version="1.0" ecidade-version="2.3.39" id-modulo="39">
+   <id id="TransferenciaBancaria"> </id>
+   <files>    
+
+    <!-- outro -->
+    <file name="TransferenciaBancaria.xml"    path="/modification/xml/TransferenciaBancaria.xml" />
+
+   </files>
+  </plugin>
+</manifest>    

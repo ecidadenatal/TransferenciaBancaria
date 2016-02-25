@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <name>TransferenciaBancaria</name>
+  <id>TransferenciaBancaria</id>
+  <ecidade-version>2.3.39</ecidade-version>
+  
+  <file path='scripts/classes/DBViewSlipPagamento.classe.js'>
+    <operation>
+      <search><![CDATA[/* Plugin - Filtro Transferência Bancária - Parte 1 */]]></search>
+      <add position="after">
+        <![CDATA[  if (iTipoTransferencia == 5 && iOpcao == 1) {
+    me.oTxtContaDebitoCodigo.setReadOnly(true);
+  }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* Plugin - Filtro Transferência Bancária - Parte 2 */]]></search>
+      <add position="after">
+        <![CDATA[  else if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
+    me.oTxtContaDebitoCodigo.setReadOnly(false);
+  }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* Plugin - Filtro Transferência Bancária - Parte 3 */]]></search>
+      <add position="after">
+        <![CDATA[  if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
+    me.oTxtContaDebitoCodigo.setReadOnly(false);
+  }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    var sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
+    }]]></search>
+      <add position="replace">
+        <![CDATA[    var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false ? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
+    var sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr&filtro_fornecedor="+completaQuery;
+    }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
+    }]]></search>
+      <add position="replace">
+        <![CDATA[    var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
+    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
+    if (lMostra) {
+      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr"+completaQuery;
+    }
+]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='func_saltesreduz.php'>
+    <operation>
+      <search><![CDATA[/* [Extensão] - Transferência Bancária - Filtro de Conta por Favorecido */]]></search>
+      <add position="after">
+        <![CDATA[      if (!empty($filtro_favorecido)) {
+        $dbwhere .= " and exists (select 1 from conplanoconta
+                                   inner join pcfornecon on pc63_banco = c63_banco and
+                                                                 pc63_agencia = c63_agencia and
+                                                                 pc63_agencia_dig = c63_dvagencia and
+                                                                 pc63_conta = c63_conta and
+                                                                 pc63_conta_dig = c63_dvconta 
+                                                           where c63_codcon = c60_codcon and c63_anousu = c60_anousu
+                                                                 and pc63_numcgm = $filtro_favorecido)";
+      }]]>
+      </add>
+    </operation>
+  </file>
+
+</modification>
