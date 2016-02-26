@@ -1,2 +1,2 @@
 # TransferenciaBancaria
-Plugin de alterações na Transferência Bancária
+Plugin de alterações na Transferência Bancária.
