@@ -60,6 +60,15 @@
 ]]>
       </add>
     </operation>
+
+    <operation>
+      <search><![CDATA[if (me.iTipoTransferencia == 5 || me.iTipoTransferencia == 6) {
+      oRowFavorecido.style.display = 'none';
+    }]]></search>
+      <add position="replace">
+        <![CDATA[ ]]>
+      </add>
+    </operation>
   </file>
 
   <file path='func_saltesreduz.php'>

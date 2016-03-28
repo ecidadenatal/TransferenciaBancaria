@@ -64,7 +64,7 @@
 
   <file path='func_saltesreduz.php'>
     <operation>
-      <search><![CDATA[/* [Extensão] - Transferencia Bancaria - Filtro de Conta por Favorecido */]]></search>
+      <search><![CDATA[/* [Extensao] - Transferencia Bancaria - Filtro de Conta por Favorecido */]]></search>
       <add position="after">
         <![CDATA[      if (!empty($filtro_favorecido)) {
         $dbwhere .= " and exists (select 1 from conplanoconta
