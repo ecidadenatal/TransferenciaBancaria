@@ -78,11 +78,12 @@
         <![CDATA[      if (!empty($filtro_favorecido)) {
         $dbwhere .= " and exists (select 1 from conplanoconta
                                    inner join pcfornecon on pc63_banco = c63_banco and
-                                                                 pc63_agencia = c63_agencia and
-                                                                 pc63_agencia_dig = c63_dvagencia and
-                                                                 pc63_conta = c63_conta and
-                                                                 pc63_conta_dig = c63_dvconta 
-                                                           where c63_codcon = c60_codcon and c63_anousu = c60_anousu
+                                                                 pc63_agencia            = c63_agencia and
+                                                                 upper(pc63_agencia_dig) = upper(c63_dvagencia) and
+                                                                 pc63_conta              = c63_conta and
+                                                                 upper(pc63_conta_dig)   = upper(c63_dvconta) 
+                                                           where c63_codcon = c60_codcon 
+                                                                 and c63_anousu = c60_anousu
                                                                  and pc63_numcgm = $filtro_favorecido)";
       }]]>
       </add>
