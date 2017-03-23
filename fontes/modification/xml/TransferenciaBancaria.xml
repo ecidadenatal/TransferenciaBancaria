@@ -6,85 +6,62 @@
   
   <file path='scripts/classes/DBViewSlipPagamento.classe.js'>
     <operation>
-      <search><![CDATA[/* Plugin - Filtro Transferencia Bancaria - Parte 1 */]]></search>
+      <search><![CDATA[me.oTxtDescricaoFinalidadeFundeb.setReadOnly(me.lReadOnly);]]></search>
       <add position="after">
-        <![CDATA[  if (iTipoTransferencia == 5 && iOpcao == 1) {
+        <![CDATA[
+  /* Plugin - Filtro Transferencia Bancaria */
+  if (iTipoTransferencia == 5 && iOpcao == 1) {
     me.oTxtContaDebitoCodigo.setReadOnly(true);
-  }]]>
+  }
+  ]]>
       </add>
     </operation>
 
     <operation>
-      <search><![CDATA[/* Plugin - Filtro Transferencia Bancaria - Parte 2 */]]></search>
-      <add position="after">
-        <![CDATA[  else if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
+      <search regex="true"><![CDATA[(if\s*\(lErro\)\s*{\n*\s*me.oTxtFavorecidoInputCodigo.setValue\(.*\);\n*\s*})]]></search>
+      <add>
+        <![CDATA[$1 else if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
     me.oTxtContaDebitoCodigo.setReadOnly(false);
   }]]>
       </add>
-    </operation>
+    </operation> 
 
     <operation>
-      <search><![CDATA[/* Plugin - Filtro Transferencia Bancaria - Parte 3 */]]></search>
-      <add position="after">
-        <![CDATA[  if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
-    me.oTxtContaDebitoCodigo.setReadOnly(false);
-  }]]>
-      </add>
-    </operation>
-
-    <operation>
-      <search><![CDATA[    var sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
-    if (lMostra) {
-      sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
-    }]]></search>
-      <add position="replace">
-        <![CDATA[    var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false ? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
-    var sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
-    if (lMostra) {
-      sUrlSaltes = "func_saltesreduz.php?ver_datalimite=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr&filtro_fornecedor="+completaQuery;
-    }]]>
-      </add>
-    </operation>
-
-    <operation>
-      <search><![CDATA[    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta;
-    if (lMostra) {
-      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr";
-    }]]></search>
-      <add position="replace">
-        <![CDATA[    var completaQuery = iTipoTransferencia == 5 && iOpcao == 1 && lCredito == false? "&filtro_favorecido="+me.oTxtFavorecidoInputCodigo.getValue() : "";
-    var sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&pesquisa_chave="+oTxtConta.getValue()+"&funcao_js=parent."+me.sNomeInstancia+".preenche"+sFunctionCompleta+completaQuery;
-    if (lMostra) {
-      sUrlSaltes = "func_saltesreduz.php?filtro_departamento=1&funcao_js=parent."+me.sNomeInstancia+".completa"+sFunctionCompleta+"|k13_reduz|k13_descr"+completaQuery;
-    }
-]]>
-      </add>
-    </operation>
-
-    <operation>
-      <search><![CDATA[if (me.iTipoTransferencia == 5 || me.iTipoTransferencia == 6) {
-      oRowFavorecido.style.display = 'none';
-    }]]></search>
-      <add position="replace">
+      <search regex="true"><![CDATA[(if\s*\(me.iTipoTransferencia\s*==\s*5\s*\|\|\s*me.iTipoTransferencia\s*==\s*6\s*\)\s*{\n*.*\n*.*})]]></search>
+      <add>
         <![CDATA[ ]]>
+      </add>
+    </operation>
+    
+        <operation>
+      <search regex="true"><![CDATA[(db_iframe_cgm.hide\(\);)]]></search>
+      <add>
+        <![CDATA[$1
+    /* Plugin - Filtro Transferencia Bancaria */
+    if (me.iTipoTransferencia == 5 && me.iOpcao == 1) {
+      me.oTxtContaDebitoCodigo.setReadOnly(false);
+    }]]>
       </add>
     </operation>
   </file>
 
   <file path='func_saltesreduz.php'>
     <operation>
-      <search><![CDATA[/* [Extensao] - Transferencia Bancaria - Filtro de Conta por Favorecido */]]></search>
-      <add position="after">
-        <![CDATA[      if (!empty($filtro_favorecido)) {
+      <search regex="true"><![CDATA[(if\s*\(\s*isset\s*\(\s*\$ver_datalimite\s*\))]]></search>
+      <add>
+        <![CDATA[if (!empty($filtro_favorecido)) {
         $dbwhere .= " and exists (select 1 from conplanoconta
                                    inner join pcfornecon on pc63_banco = c63_banco and
-                                                                 pc63_agencia = c63_agencia and
+                                                                 pc63_agencia            = c63_agencia and
                                                                  upper(pc63_agencia_dig) = upper(c63_dvagencia) and
-                                                                 pc63_conta = c63_conta and
-                                                                 upper(pc63_conta_dig) = upper(c63_dvconta) 
-                                                           where c63_codcon = c60_codcon and c63_anousu = c60_anousu
+                                                                 pc63_conta              = c63_conta and
+                                                                 upper(pc63_conta_dig)   = upper(c63_dvconta) 
+                                                           where c63_codcon = c60_codcon 
+                                                                 and c63_anousu = c60_anousu
                                                                  and pc63_numcgm = $filtro_favorecido)";
-      }]]>
+      }
+      
+      $1]]>
       </add>
     </operation>
   </file>
